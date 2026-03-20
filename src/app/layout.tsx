@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
+import CustomCursor from "@/components/CustomCursor";
+import PageLoader from "@/components/PageLoader"; // ← add this
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,39 +16,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ✅ All your SEO metadata lives here
 export const metadata: Metadata = {
-  // Basic SEO — shows in Google search results
   title: "Rahul — Next.js Developer",
   description:
     "Portfolio of Rahul, a Next.js developer building modern web applications. View my projects, skills and get in touch.",
-
-  // Keywords (less important nowadays but still good to have)
   keywords: ["Next.js", "React", "Portfolio", "Full Stack Developer", "Rahul"],
-
-  // The author
   authors: [{ name: "Rahul" }],
-
-  // Open Graph — used by LinkedIn, Facebook, WhatsApp for preview cards
   openGraph: {
     title: "Rahul — Next.js Developer",
     description:
       "Portfolio of Rahul, a Next.js developer building modern web applications.",
-    url: "https://rahul.dev", // 🔁 change to your real URL after deploying
+    url: "https://my-portfolio-pearl-eight-ki13whxvso.vercel.app",
     siteName: "Rahul.dev",
     locale: "en_US",
     type: "website",
   },
-
-  // Twitter/X card
   twitter: {
     card: "summary_large_image",
     title: "Rahul — Next.js Developer",
     description:
       "Portfolio of Rahul, a Next.js developer building modern web applications.",
   },
-
-  // Tells Google to index your site
   robots: {
     index: true,
     follow: true,
@@ -62,6 +52,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
+          <PageLoader />   {/* ← plays once on first load */}
+          <CustomCursor />
           <Navbar />
           {children}
         </ThemeProvider>
