@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const projects = await prisma.project.findMany({
     select: { slug: true },
   });
-  return projects.map((p) => ({ slug: p.slug }));
+  return projects.map((p: { slug: string }) => ({ slug: p.slug }));
 }
 
 // ✅ Unique SEO metadata per project fetched from DB
