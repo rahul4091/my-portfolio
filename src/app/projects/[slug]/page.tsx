@@ -1,25 +1,21 @@
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { projects } from "@/lib/projects";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-// ✅ Pre-build all project pages at deploy time from database
+// ✅ Pre-build all project pages from static data (no DB needed at build time)
 export async function generateStaticParams() {
-  const projects = await prisma.project.findMany({
-    select: { slug: true },
-  });
-  return projects.map((p: { slug: string }) => ({ slug: p.slug }));
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
-// ✅ Unique SEO metadata per project fetched from DB
+// ✅ Unique SEO metadata per project
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const project = await prisma.project.findUnique({
-    where: { slug: params.slug },
-  });
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
     title: `${project.name} — Rahul`,
@@ -27,15 +23,14 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Server component — fetches from DB, no useEffect needed!
+// ✅ Server component — reads from static data, no DB required
 export default async function ProjectPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await prisma.project.findUnique({
-    where: { slug: params.slug },
-  });
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) notFound();
 
