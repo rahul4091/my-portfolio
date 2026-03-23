@@ -9,16 +9,43 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     setMounted(true);
+
+    // Scroll blur effect
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // Active section detection
+    const sections = ["projects", "contact"];
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observers.forEach((o) => o.disconnect());
+    };
   }, []);
 
-  const navLink = (href: string, label: string) => {
-    const active = pathname === href;
+  const navLink = (href: string, label: string, sectionId?: string) => {
+    const isPage = pathname === href;
+    const isSection = sectionId ? activeSection === sectionId : false;
+    const active = isPage || isSection;
+
     return (
       <Link
         href={href}
@@ -52,6 +79,8 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           {navLink("/", "Home")}
           {navLink("/about", "About")}
+          {navLink("/#projects", "Projects", "projects")}
+          {navLink("/#contact", "Contact", "contact")}
 
           <span className="w-px h-4 bg-zinc-700" />
 
