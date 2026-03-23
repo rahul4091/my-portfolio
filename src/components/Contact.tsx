@@ -19,7 +19,6 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", message: "" });
@@ -31,104 +30,84 @@ export default function Contact() {
     }
   };
 
-  const inputClass =
-    "w-full p-3 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition";
+  const inputClass = "w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800/50 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition text-sm";
 
   return (
-    <motion.section
-      id="contact"
-      className="py-20 px-6 bg-zinc-100 dark:bg-zinc-900"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.h2
-        className="text-3xl font-bold text-center"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        Contact Me
-      </motion.h2>
+    <section id="contact" className="py-24 px-6 bg-zinc-50 dark:bg-zinc-900/50">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-xs font-semibold tracking-widest uppercase text-yellow-500 dark:text-yellow-400 mb-3">
+            Get in touch
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Me</h2>
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-md mx-auto text-sm leading-relaxed">
+            Have a question, a project idea, or just want to say hi? I&apos;d love to hear from you.
+          </p>
+        </motion.div>
 
-      <motion.p
-        className="text-center text-zinc-500 dark:text-zinc-400 mt-3 mb-10"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
-        Have a question or want to work together? Drop me a message.
-      </motion.p>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
+          <motion.div
+            className="md:col-span-2 space-y-6"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div>
+              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Email</p>
+              <p className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">rahulcpawar3107@gmail.com</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-1">Location</p>
+              <p className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">India 🇮🇳</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-2">Socials</p>
+              <div className="flex gap-3">
+                <a href="https://github.com/rahul4091" target="_blank" rel="noopener noreferrer" className="text-xs px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium">GitHub ↗</a>
+                <a href="https://www.linkedin.com/in/rahul-pawar-5b8881240/" target="_blank" rel="noopener noreferrer" className="text-xs px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium">LinkedIn ↗</a>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <p className="text-xs text-zinc-400 leading-relaxed">I typically respond within 24 hours. Looking forward to hearing from you!</p>
+            </div>
+          </motion.div>
 
-      <form
-        className="max-w-xl mx-auto flex flex-col gap-4"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex flex-col sm:flex-row gap-4">
-          <input
-            name="name"
-            type="text"
-            placeholder="Your name"
-            value={formData.name}
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Your email"
-            value={formData.email}
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
+          <motion.form
+            className="md:col-span-3 flex flex-col gap-4"
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input name="name" type="text" placeholder="Your name" value={formData.name} onChange={handleChange} className={inputClass} required />
+              <input name="email" type="email" placeholder="Your email" value={formData.email} onChange={handleChange} className={inputClass} required />
+            </div>
+            <textarea name="message" placeholder="Tell me about your project or question..." value={formData.message} onChange={handleChange} rows={6} className={inputClass} required />
+            <button type="submit" disabled={status === "sending"} className="w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 shadow-lg">
+              {status === "sending" ? "Sending..." : "Send Message →"}
+            </button>
+            {status === "success" && (
+              <motion.div className="p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm text-center" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                ✅ Message sent! I&apos;ll get back to you soon.
+              </motion.div>
+            )}
+            {status === "error" && (
+              <motion.div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm text-center" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                ❌ Something went wrong. Please try again.
+              </motion.div>
+            )}
+          </motion.form>
         </div>
-
-        <textarea
-          name="message"
-          placeholder="Your message..."
-          value={formData.message}
-          onChange={handleChange}
-          rows={6}
-          className={inputClass}
-          required
-        />
-
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="w-full py-3 rounded-lg bg-black dark:bg-white text-white dark:text-black font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {status === "sending" ? "Sending..." : "Send Message"}
-        </button>
-      </form>
-
-      {/* Status message */}
-      {status === "success" && (
-        <motion.div
-          className="max-w-xl mx-auto mt-4 p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm text-center"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          ✅ Message sent! I'll get back to you soon.
-        </motion.div>
-      )}
-
-      {status === "error" && (
-        <motion.div
-          className="max-w-xl mx-auto mt-4 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm text-center"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          ❌ Something went wrong. Please try again.
-        </motion.div>
-      )}
-    </motion.section>
+      </div>
+    </section>
   );
 }
