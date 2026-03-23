@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Metadata } from "next";
 import Link from "next/link";
 
 const techStack = [
@@ -12,19 +11,19 @@ const techStack = [
 
 const timeline = [
   {
-    year: "2024",
-    title: "Started Full-Stack Development",
-    desc: "Began learning Next.js, Node.js and building real projects from scratch.",
+    year: "Year 1",
+    title: "Started My Coding Journey",
+    desc: "Picked up HTML, CSS and JavaScript from scratch. Built my first static websites and fell in love with seeing ideas come to life on screen.",
   },
   {
-    year: "2024",
-    title: "Built Library Management System",
-    desc: "Created a full RESTful API backend with Node.js, Express and MongoDB.",
+    year: "Year 2",
+    title: "Went Full Stack",
+    desc: "Learned Node.js, Express and MongoDB. Built my first backend API — a Library Management System with full CRUD, MVC architecture and cron jobs.",
   },
   {
-    year: "2025",
-    title: "Launched Portfolio",
-    desc: "Built and deployed this portfolio using Next.js, Tailwind CSS and Framer Motion.",
+    year: "Year 3",
+    title: "Mastered Modern Web Dev",
+    desc: "Dived deep into Next.js, TypeScript, PostgreSQL and Prisma. Built and deployed this portfolio with a real database, email integration and CI/CD pipeline.",
   },
 ];
 
@@ -40,7 +39,8 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <div className="h-1.5 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 mb-8" />
-          <h1 className="text-4xl font-bold mb-6">About Me</h1>
+          <h1 className="text-4xl font-bold mb-2">About Me</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 text-sm">Fresh Graduate · Full Stack Developer · India 🇮🇳</p>
         </motion.div>
 
         {/* Bio */}
@@ -48,33 +48,59 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
-          className="space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed mb-12"
+          className="mt-8 space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed"
         >
           <p>
             Hi, I&apos;m <span className="font-semibold text-zinc-900 dark:text-white">Rahul</span> — a
-            full-stack developer from India who loves building clean, functional web applications.
+            full stack developer from India with 3 years of hands-on coding experience.
+            I started with a simple curiosity and grew it into a real passion for building
+            things that people actually use.
           </p>
           <p>
-            I&apos;m focused on the JavaScript ecosystem — building frontends with{" "}
-            <span className="font-medium text-zinc-800 dark:text-zinc-200">Next.js & React</span> and
-            backends with{" "}
+            What drives me is simple —{" "}
             <span className="font-medium text-zinc-800 dark:text-zinc-200">
-              Node.js, Express and MongoDB/PostgreSQL
-            </span>
-            .
+              I love to build products that solve real problems and are used by many people.
+            </span>{" "}
+            Every project I build teaches me something new and pushes me closer to that goal.
           </p>
           <p>
-            I enjoy taking projects from idea to deployment — writing the backend API, designing the
-            frontend UI, and making it all work together on platforms like Vercel.
+            I&apos;m a fresh graduate actively looking for a{" "}
+            <span className="font-medium text-zinc-800 dark:text-zinc-200">
+              full-time full stack developer role
+            </span>{" "}
+            where I can contribute from day one, keep learning, and build products that make an impact.
           </p>
+        </motion.div>
+
+        {/* What I bring */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.6 }}
+          className="mt-10 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
+        >
+          <h2 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-4">What I bring</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { icon: "🚀", title: "4+ Projects", desc: "Built and deployed real apps" },
+              { icon: "🔧", title: "Full Stack", desc: "Frontend + Backend + DB" },
+              { icon: "📦", title: "Ship Ready", desc: "CI/CD, Vercel, Neon DB" },
+            ].map((item) => (
+              <div key={item.title} className="flex flex-col gap-1">
+                <span className="text-2xl">{item.icon}</span>
+                <span className="font-semibold text-zinc-900 dark:text-white text-sm">{item.title}</span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400">{item.desc}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Tech Stack */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="mb-12"
+          transition={{ delay: 0.35, duration: 0.6 }}
+          className="mt-10"
         >
           <h2 className="text-2xl font-semibold mb-4">Tech Stack</h2>
           <div className="flex flex-wrap gap-2">
@@ -83,7 +109,7 @@ export default function About() {
                 key={t}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.35 + i * 0.04, duration: 0.3 }}
+                transition={{ delay: 0.4 + i * 0.04, duration: 0.3 }}
                 className="text-sm px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium"
               >
                 {t}
@@ -92,15 +118,15 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Timeline */}
+        {/* Journey Timeline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mb-12"
+          className="mt-10"
         >
-          <h2 className="text-2xl font-semibold mb-6">Journey</h2>
-          <div className="space-y-6">
+          <h2 className="text-2xl font-semibold mb-6">My Journey</h2>
+          <div className="space-y-0">
             {timeline.map((item, i) => (
               <motion.div
                 key={i}
@@ -112,19 +138,13 @@ export default function About() {
                 <div className="flex flex-col items-center">
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-400 mt-1.5 shrink-0" />
                   {i < timeline.length - 1 && (
-                    <div className="w-px flex-1 bg-zinc-200 dark:bg-zinc-800 mt-1" />
+                    <div className="w-px flex-1 bg-zinc-200 dark:bg-zinc-800 mt-1 mb-1" />
                   )}
                 </div>
-                <div className="pb-6">
-                  <span className="text-xs font-mono text-yellow-500 dark:text-yellow-400">
-                    {item.year}
-                  </span>
-                  <h3 className="font-semibold text-zinc-900 dark:text-white mt-0.5">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
-                    {item.desc}
-                  </p>
+                <div className="pb-8">
+                  <span className="text-xs font-mono text-yellow-500 dark:text-yellow-400">{item.year}</span>
+                  <h3 className="font-semibold text-zinc-900 dark:text-white mt-0.5">{item.title}</h3>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -135,21 +155,29 @@ export default function About() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="flex gap-4"
+          transition={{ delay: 0.75, duration: 0.6 }}
+          className="mt-4 p-6 rounded-2xl border border-yellow-200 dark:border-yellow-400/20 bg-yellow-50 dark:bg-yellow-400/5"
         >
-          <Link
-            href="/#projects"
-            className="px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
-          >
-            View my projects
-          </Link>
-          <Link
-            href="/#contact"
-            className="px-5 py-2.5 border border-zinc-300 dark:border-zinc-700 rounded-lg text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
-          >
-            Contact me
-          </Link>
+          <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
+            👋 Currently open to full-time opportunities
+          </p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
+            Looking for a full stack role where I can build real products and grow fast.
+          </p>
+          <div className="flex gap-3">
+            <Link
+              href="/#contact"
+              className="px-5 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+            >
+              Get in touch
+            </Link>
+            <Link
+              href="/#projects"
+              className="px-5 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+            >
+              View my work
+            </Link>
+          </div>
         </motion.div>
 
       </div>
