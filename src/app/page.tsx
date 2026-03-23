@@ -4,15 +4,14 @@ import Project from "@/components/Project";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
-
 export default function Home() {
   return (
     <>
-    <Hero />
-    <Skil />
-    <Project />
-    <Contact />
-    <Footer />
+      <Hero />
+      <Skil />
+      <Project />
+      <Contact />
+      <Footer />
     </>
   );
 }
