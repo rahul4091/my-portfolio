@@ -9,15 +9,21 @@ async function getReadme(githubUrl: string): Promise<string | null> {
   try {
     const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) return null;
+
     const [, owner, repo] = match;
+
     const res = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/readme`,
       {
-        headers: { Accept: "application/vnd.github.v3+json" },
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+        },
         next: { revalidate: 3600 },
       }
     );
+
     if (!res.ok) return null;
+
     const data = await res.json();
     return Buffer.from(data.content, "base64").toString("utf-8");
   } catch {
@@ -37,7 +43,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
-  return { title: `${project.name} — Rahul`, description: project.desc };
+
+  return {
+    title: `${project.name} — Rahul`,
+    description: project.desc,
+  };
 }
 
 export default async function ProjectPage({
@@ -55,20 +65,24 @@ export default async function ProjectPage({
     <main className="min-h-screen bg-white dark:bg-black py-16 px-6">
       <div className="max-w-3xl mx-auto">
 
+        {/* Back */}
         <Link
           href="/#projects"
           className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors mb-10"
         >
-          Back to projects
+          ← Back to projects
         </Link>
 
+        {/* Gradient */}
         <div className={`h-1.5 w-20 rounded-full bg-gradient-to-r ${project.gradient} mb-8`} />
 
+        {/* Title + Views */}
         <div className="flex items-start justify-between gap-4 mb-4">
           <h1 className="text-4xl font-bold">{project.name}</h1>
           <ViewCounter slug={slug} />
         </div>
 
+        {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-8">
           {project.tech.map((t) => (
             <span
@@ -80,8 +94,9 @@ export default async function ProjectPage({
           ))}
         </div>
 
+        {/* Links */}
         <div className="flex gap-3 mb-10">
-<a
+          <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
@@ -89,6 +104,7 @@ export default async function ProjectPage({
           >
             GitHub
           </a>
+
           {project.live && (
             <a
               href={project.live}
@@ -103,31 +119,7 @@ export default async function ProjectPage({
 
         <hr className="border-zinc-200 dark:border-zinc-800 mb-10" />
 
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">About this project</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{project.longDesc}</p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">Key features</h2>
-          <ul className="space-y-2">
-            {project.features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400 text-sm"
-              >
-                <span className="text-yellow-400 mt-0.5">✦</span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">What I learned</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{project.challenges}</p>
-        </section>
-
+        {/* README */}
         {readme && (
           <>
             <hr className="border-zinc-200 dark:border-zinc-800 mb-10" />
@@ -138,7 +130,8 @@ export default async function ProjectPage({
                   from GitHub
                 </span>
               </div>
-              <div className="prose prose-zinc dark:prose-invert max-w-none prose-sm prose-headings:font-semibold prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800 prose-code:px-1 prose-code:rounded prose-a:text-yellow-500">
+
+              <div className="prose prose-zinc dark:prose-invert max-w-none prose-sm">
                 <ReactMarkdown>{readme}</ReactMarkdown>
               </div>
             </section>
@@ -147,6 +140,7 @@ export default async function ProjectPage({
 
         <hr className="border-zinc-200 dark:border-zinc-800 mb-8" />
 
+        {/* Footer Links */}
         <div className="flex justify-between items-center">
           <Link
             href="/#projects"
@@ -154,6 +148,7 @@ export default async function ProjectPage({
           >
             All projects
           </Link>
+
           <Link
             href="/#contact"
             className="text-sm px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
