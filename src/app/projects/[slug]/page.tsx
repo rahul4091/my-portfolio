@@ -59,7 +59,17 @@ export default async function ProjectPage({
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const readme = await getReadme(project.github);
+  const rawReadme = await getReadme(project.github);
+
+  // Remove sections we don't want to show on the portfolio
+  const hiddenSections = ["Local Setup", "Environment Variables", "Author"];
+  const readme = rawReadme
+    ? rawReadme
+        .split(/(?=^## )/m)
+        .filter((section) => !hiddenSections.some((h) => section.startsWith(`## ${h}`)))
+        .join("")
+        .trim()
+    : null;
 
   return (
     <main className="min-h-screen bg-white dark:bg-black py-16 px-6">
