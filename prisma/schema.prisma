@@ -17,10 +17,18 @@ model Message {
 }
 
 model Project {
-  id        Int      @id @default(autoincrement())
-  slug      String   @unique
-  githubUrl String?
-  viewCount Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique
+  name       String
+  desc       String
+  longDesc   String
+  tech       String[]
+  githubUrl  String
+  liveUrl    String?
+  gradient   String
+  features   String[]
+  challenges String
+  viewCount  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
