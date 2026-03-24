@@ -134,15 +134,6 @@ export default async function ProjectPage({
         {/* README */}
 {readme && (
   <section className="mb-12">
-
-    {/* Header */}
-    <div className="mb-6">
-      <h2 className="text-2xl font-bold">README</h2>
-      <p className="text-sm text-zinc-500">
-        Documentation fetched from GitHub
-      </p>
-    </div>
-
     {/* Content */}
     <div
       className="
