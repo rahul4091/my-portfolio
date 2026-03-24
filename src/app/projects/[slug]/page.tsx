@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
-import { projects } from "@/lib/projects";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import ViewCounter from "@/components/ViewCounter";
 import remarkGfm from "remark-gfm";
+import ViewCounter from "@/components/ViewCounter";
 import { prisma } from "@/lib/prisma";
 
 async function getReadme(githubUrl: string): Promise<string | null> {
@@ -28,6 +27,7 @@ async function getReadme(githubUrl: string): Promise<string | null> {
 }
 
 export async function generateStaticParams() {
+  const projects = await prisma.project.findMany({ select: { slug: true } });
   return projects.map((p) => ({ slug: p.slug }));
 }
 
@@ -37,7 +37,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await prisma.project.findUnique({ where: { slug } });
   if (!project) return {};
   return { title: `${project.name} — Rahul`, description: project.desc };
 }
@@ -48,13 +48,10 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await prisma.project.findUnique({ where: { slug } });
   if (!project) notFound();
 
-  const dbProject = await prisma.project.findUnique({ where: { slug } });
-  const githubUrl = dbProject?.githubUrl ?? project.github;
-
-  const rawReadme = await getReadme(githubUrl);
+  const rawReadme = await getReadme(project.githubUrl);
   const hiddenSections = ["Local Setup", "Environment Variables", "Author"];
   const readme = rawReadme
     ? rawReadme
@@ -96,16 +93,16 @@ export default async function ProjectPage({
 
         <div className="flex gap-3 mb-10">
           <a
-            href={githubUrl}
+            href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             GitHub
           </a>
-          {project.live && (
+          {project.liveUrl && (
             <a
-              href={project.live}
+              href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
