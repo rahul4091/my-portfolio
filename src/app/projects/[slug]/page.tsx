@@ -61,11 +61,12 @@ export default async function ProjectPage({
 
   const rawReadme = await getReadme(project.github);
 
-  // Remove sections we don't want to show on the portfolio
+  // Remove top title/intro and unwanted sections
   const hiddenSections = ["Local Setup", "Environment Variables", "Author"];
   const readme = rawReadme
     ? rawReadme
         .split(/(?=^## )/m)
+        .filter((section) => !section.startsWith("# "))
         .filter((section) => !hiddenSections.some((h) => section.startsWith(`## ${h}`)))
         .join("")
         .trim()
@@ -132,14 +133,8 @@ export default async function ProjectPage({
         {/* README */}
         {readme && (
           <>
-            <hr className="border-zinc-200 dark:border-zinc-800 mb-10" />
             <section className="mb-10">
-              <div className="flex items-center gap-3 mb-6">
-                <h2 className="text-xl font-semibold">README</h2>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500">
-                  from GitHub
-                </span>
-              </div>
+
 
               <div className="prose prose-zinc dark:prose-invert max-w-none prose-sm">
                 <ReactMarkdown>{readme}</ReactMarkdown>
