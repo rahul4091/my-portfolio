@@ -26,11 +26,6 @@ async function getReadme(githubUrl: string): Promise<string | null> {
   }
 }
 
-export async function generateStaticParams() {
-  const projects = await prisma.project.findMany({ select: { slug: true } });
-  return projects.map((p) => ({ slug: p.slug }));
-}
-
 export async function generateMetadata({
   params,
 }: {
