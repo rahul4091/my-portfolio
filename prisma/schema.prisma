@@ -15,3 +15,11 @@ model Message {
   message   String
   createdAt DateTime @default(now())
 }
+
+model Project {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  viewCount Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
