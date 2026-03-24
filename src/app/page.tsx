@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Hero from "@/components/Hero";
 import Skil from "@/components/Skill";
 import Project from "@/components/Project";
