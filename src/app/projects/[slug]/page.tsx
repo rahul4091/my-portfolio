@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import ViewCounter from "@/components/ViewCounter";
+import remarkGfm from "remark-gfm";
 
 async function getReadme(githubUrl: string): Promise<string | null> {
   try {
@@ -131,17 +132,41 @@ export default async function ProjectPage({
         <hr className="border-zinc-200 dark:border-zinc-800 mb-10" />
 
         {/* README */}
-        {readme && (
-          <>
-            <section className="mb-10">
+{readme && (
+  <section className="mb-12">
 
+    {/* Header */}
+    <div className="mb-6">
+      <h2 className="text-2xl font-bold">README</h2>
+      <p className="text-sm text-zinc-500">
+        Documentation fetched from GitHub
+      </p>
+    </div>
 
-              <div className="prose prose-zinc dark:prose-invert max-w-none prose-sm">
-                <ReactMarkdown>{readme}</ReactMarkdown>
-              </div>
-            </section>
-          </>
-        )}
+    {/* Content */}
+    <div
+      className="
+        prose prose-zinc dark:prose-invert
+        max-w-none
+        prose-sm md:prose-base
+        prose-headings:font-bold
+        prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:mt-6 prose-h3:mb-2
+        prose-p:leading-relaxed
+        prose-li:my-1
+        prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800
+        prose-code:px-1 prose-code:rounded
+        prose-pre:bg-zinc-900 prose-pre:text-white
+        prose-pre:p-4 prose-pre:rounded-xl
+      "
+    >
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {readme}
+      </ReactMarkdown>
+    </div>
+
+  </section>
+)}
 
         <hr className="border-zinc-200 dark:border-zinc-800 mb-8" />
 
