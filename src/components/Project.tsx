@@ -28,11 +28,18 @@ export default async function Projects() {
                   <h3 className="text-lg font-bold group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors">
                     {project.name}
                   </h3>
-                  {project.liveUrl && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium shrink-0 ml-2">
-                      Live
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                    {project.slug === "personal-ai" && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 font-medium">
+                        In Progress
+                      </span>
+                    )}
+                    {project.liveUrl && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium">
+                        Live
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5">
                   {project.desc}

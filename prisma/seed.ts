@@ -1,7 +1,7 @@
 import { PrismaClient } from "../src/generated/prisma";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import * as dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
+dotenv.config();
 
 const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
@@ -49,40 +49,39 @@ async function main() {
       challenges: "Designing the MVC folder structure before writing a single line of code was the key decision that made this project work. Early on I tried writing everything in one file — it became unmanageable fast.",
     },
     {
-      slug: "todo-app",
-      name: "Todo App",
-      desc: "A fast, minimal task manager built with React — featuring full CRUD, filters and localStorage persistence.",
-      longDesc: "A task management app that actually works the way users expect — tasks survive page refreshes, filters work instantly, and the UI responds without any delay. Built with React using hooks for state management and localStorage for persistence.",
-      tech: ["React", "JavaScript", "localStorage", "CSS"],
-      githubUrl: "https://github.com/rahul4091/my-portfolio",
-      liveUrl: null,
-      gradient: "from-blue-400 to-cyan-400",
+      slug: "payload-ecommerce",
+      name: "Payload Ecommerce",
+      desc: "A full-stack e-commerce platform built with Payload CMS and Next.js — featuring product management, cart, and a live storefront.",
+      longDesc: "A production e-commerce platform that uses Payload CMS as the headless backend for product and order management, paired with a Next.js storefront. The project covers the full commerce flow — browsing products, managing a cart, and checking out — with content managed through Payload's admin panel.",
+      tech: ["Payload CMS", "Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"],
+      githubUrl: "https://github.com/rahul4091/payload-ecommerce",
+      liveUrl: "https://payload-ecommerce-eight.vercel.app",
+      gradient: "from-indigo-400 to-purple-400",
       features: [
-        "Add, complete and delete tasks instantly",
-        "localStorage persistence — tasks survive refresh",
-        "Filter by All / Active / Completed",
-        "Task count tracking",
-        "Clean minimal UI with smooth interactions",
+        "Payload CMS admin panel for product and order management",
+        "Next.js storefront with dynamic product pages",
+        "Cart functionality with state management",
+        "Full TypeScript across frontend and CMS",
+        "Deployed on Vercel with live demo",
       ],
-      challenges: "Managing state correctly across add, delete and toggle operations was the main learning. This was one of my first React projects and taught me useState and how to think in components.",
+      challenges: "Integrating Payload CMS as a headless backend with a separate Next.js frontend required careful API design. Getting type safety across both layers without duplication was the biggest architectural challenge.",
     },
     {
-      slug: "blog-platform",
-      name: "Blog Platform",
-      desc: "A Next.js blog platform with Markdown support, static generation and per-post SEO metadata.",
-      longDesc: "A performant blog platform where posts are written in Markdown and pre-rendered at build time using Next.js SSG. Each post gets its own dynamic route, custom metadata for SEO, and loads instantly because there is no server-side rendering at request time.",
-      tech: ["Next.js", "MDX", "Markdown", "SSG", "TypeScript"],
-      githubUrl: "https://github.com/rahul4091/my-portfolio",
+      slug: "personal-ai",
+      name: "Personal AI",
+      desc: "A personal AI assistant I'm actively building — bringing together LLM APIs and a custom interface for day-to-day productivity.",
+      longDesc: "An ongoing personal project to build a custom AI assistant tailored to my workflow. Rather than relying on off-the-shelf tools, I'm building the interface and integrations from scratch — connecting LLM APIs, managing conversation context, and designing features I actually want to use every day.",
+      tech: ["JavaScript", "Node.js", "LLM APIs", "REST API"],
+      githubUrl: "https://github.com/rahul4091/Personal-AI",
       liveUrl: null,
-      gradient: "from-purple-400 to-pink-400",
+      gradient: "from-rose-400 to-orange-400",
       features: [
-        "MDX-powered blog posts with Markdown syntax",
-        "Static generation — all posts pre-built at deploy time",
-        "Dynamic routing with [slug] for each post",
-        "Per-post SEO metadata — title, description, OG tags",
-        "Zero server queries at runtime — pure static HTML",
+        "Custom chat interface with conversation history",
+        "LLM API integration for intelligent responses",
+        "Context management across sessions",
+        "Modular architecture to add new AI capabilities",
       ],
-      challenges: "Understanding when Next.js runs code was the key challenge. I kept getting confused about what runs at build time vs request time. Building this project made it click.",
+      challenges: "Managing conversation context without exceeding token limits while keeping responses relevant is the core ongoing challenge. This project is actively evolving.",
     },
   ];
 

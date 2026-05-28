@@ -112,26 +112,34 @@ export default async function ProjectPage({
         {readme ? (
           <article className="mb-12 prose prose-zinc dark:prose-invert max-w-none
             prose-h1:hidden
-            prose-h2:text-xl prose-h2:font-semibold prose-h2:mt-10 prose-h2:mb-4
+            prose-h2:text-lg prose-h2:font-bold prose-h2:mt-10 prose-h2:mb-4
+            prose-h2:text-zinc-900 dark:prose-h2:text-zinc-100
             prose-h2:border-b prose-h2:border-zinc-200 dark:prose-h2:border-zinc-800 prose-h2:pb-2
             prose-h3:text-base prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-2
+            prose-h3:text-zinc-800 dark:prose-h3:text-zinc-200
             prose-p:text-zinc-600 dark:prose-p:text-zinc-400 prose-p:leading-relaxed prose-p:text-sm
             prose-li:text-zinc-600 dark:prose-li:text-zinc-400 prose-li:text-sm
             prose-ul:my-3 prose-ol:my-3
             prose-code:bg-zinc-100 dark:prose-code:bg-zinc-800
             prose-code:text-yellow-600 dark:prose-code:text-yellow-400
-            prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs
+            prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
             prose-code:before:content-none prose-code:after:content-none
             prose-pre:bg-zinc-950 prose-pre:border prose-pre:border-zinc-800
-            prose-pre:rounded-xl prose-pre:p-5 prose-pre:my-6
+            prose-pre:rounded-xl prose-pre:p-5 prose-pre:my-6 prose-pre:overflow-x-auto
+            prose-pre:text-zinc-300 prose-pre:text-xs
             prose-a:text-yellow-500 hover:prose-a:text-yellow-400 prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-zinc-800 dark:prose-strong:text-zinc-200
-            prose-hr:border-zinc-100 dark:prose-hr:border-zinc-800
-            prose-table:text-sm
-            prose-th:bg-zinc-50 dark:prose-th:bg-zinc-900 prose-th:px-4 prose-th:py-2
-            prose-th:border prose-th:border-zinc-200 dark:prose-th:border-zinc-800
-            prose-td:px-4 prose-td:py-2
-            prose-td:border prose-td:border-zinc-100 dark:prose-td:border-zinc-800
+            prose-strong:text-zinc-800 dark:prose-strong:text-zinc-100 prose-strong:font-semibold
+            prose-hr:border-zinc-200 dark:prose-hr:border-zinc-800
+            prose-table:w-full prose-table:text-sm prose-table:border-collapse
+            prose-thead:bg-zinc-50 dark:prose-thead:bg-zinc-900
+            prose-th:text-left prose-th:font-semibold prose-th:text-zinc-700 dark:prose-th:text-zinc-300
+            prose-th:px-4 prose-th:py-2.5
+            prose-th:border prose-th:border-zinc-200 dark:prose-th:border-zinc-700
+            prose-td:px-4 prose-td:py-2.5 prose-td:text-zinc-600 dark:prose-td:text-zinc-400
+            prose-td:border prose-td:border-zinc-200 dark:prose-td:border-zinc-700
+            prose-tr:even:bg-zinc-50 dark:prose-tr:even:bg-zinc-900/50
+            prose-img:rounded-xl prose-img:border prose-img:border-zinc-200 dark:prose-img:border-zinc-800
+            prose-blockquote:border-l-yellow-400 prose-blockquote:text-zinc-500 dark:prose-blockquote:text-zinc-400
           ">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{readme}</ReactMarkdown>
           </article>
