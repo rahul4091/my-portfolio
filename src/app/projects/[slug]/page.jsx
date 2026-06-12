@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ViewCounter from "@/components/ViewCounter";
 import { prisma } from "@/lib/prisma";
 
-async function getReadme(githubUrl: string): Promise<string | null> {
+async function getReadme(githubUrl) {
   try {
     const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) return null;
@@ -26,22 +25,14 @@ async function getReadme(githubUrl: string): Promise<string | null> {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await prisma.project.findUnique({ where: { slug } });
   if (!project) return {};
   return { title: `${project.name} — Rahul`, description: project.desc };
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectPage({ params }) {
   const { slug } = await params;
   const project = await prisma.project.findUnique({ where: { slug } });
   if (!project) notFound();

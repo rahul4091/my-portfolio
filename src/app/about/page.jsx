@@ -32,7 +32,6 @@ export default function About() {
     <main className="min-h-screen bg-white dark:bg-black py-20 px-6">
       <div className="max-w-2xl mx-auto">
 
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,7 +42,6 @@ export default function About() {
           <p className="text-zinc-500 dark:text-zinc-400 text-sm">Fresh Graduate · Full Stack Developer · India 🇮🇳</p>
         </motion.div>
 
-        {/* Bio */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +70,6 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* What I bring */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,7 +92,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Tech Stack */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,7 +114,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Journey Timeline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,7 +146,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

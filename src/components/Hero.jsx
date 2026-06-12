@@ -41,11 +41,9 @@ export default function Hero() {
 
   return (
     <section className="relative flex flex-col items-center justify-center text-center min-h-[88vh] px-6 overflow-hidden">
-      {/* Background blobs */}
       <div className="absolute top-20 left-1/4 w-72 h-72 bg-yellow-400/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-yellow-400/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Open to work badge */}
       <motion.div
         className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs text-zinc-500 dark:text-zinc-400 font-medium shadow-sm"
         initial={{ opacity: 0, y: -10 }}
@@ -56,7 +54,6 @@ export default function Hero() {
         Open to work
       </motion.div>
 
-      {/* Heading */}
       <motion.h1
         className="text-5xl md:text-7xl font-bold leading-tight tracking-tight"
         initial={{ opacity: 0, y: -30 }}
@@ -71,7 +68,6 @@ export default function Hero() {
         👋
       </motion.h1>
 
-      {/* Typewriter */}
       <motion.div
         className="mt-5 h-10 flex items-center justify-center text-2xl md:text-3xl font-semibold text-zinc-600 dark:text-zinc-300"
         initial={{ opacity: 0 }}
@@ -89,7 +85,6 @@ export default function Hero() {
         )}
       </motion.div>
 
-      {/* Subtitle */}
       <motion.p
         className="mt-6 text-base md:text-lg text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed"
         initial={{ opacity: 0 }}
@@ -100,7 +95,6 @@ export default function Hero() {
         Passionate about great user experiences.
       </motion.p>
 
-      {/* Trust signals */}
       <motion.div
         className="mt-8 flex flex-wrap justify-center gap-4"
         initial={{ opacity: 0, y: 10 }}
@@ -121,7 +115,6 @@ export default function Hero() {
         ))}
       </motion.div>
 
-      {/* CTA buttons */}
       <motion.div
         className="mt-8 flex flex-wrap justify-center gap-3"
         initial={{ opacity: 0, y: 20 }}
@@ -145,7 +138,6 @@ export default function Hero() {
         </a>
       </motion.div>
 
-      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-zinc-400"
         initial={{ opacity: 0 }}

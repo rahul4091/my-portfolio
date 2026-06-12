@@ -1,9 +1,8 @@
-import { PrismaClient } from "../src/generated/prisma";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import * as dotenv from "dotenv";
-dotenv.config();
+const { PrismaClient } = require("../src/generated/prisma");
+const { PrismaNeon } = require("@prisma/adapter-neon");
+require("dotenv").config();
 
-const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
+const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -91,7 +90,7 @@ async function main() {
       update: project,
       create: project,
     });
-    console.log(`✅ Seeded: ${project.name}`);
+    console.log(`Seeded: ${project.name}`);
   }
 }
 

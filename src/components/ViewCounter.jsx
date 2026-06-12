@@ -1,10 +1,9 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 
-export default function ViewCounter({ slug }: { slug: string }) {
-  const [views, setViews] = useState<number | null>(null);
+export default function ViewCounter({ slug }) {
+  const [views, setViews] = useState(null);
 
   useEffect(() => {
     fetch(`/api/projects/${slug}/view`, { method: "POST" })

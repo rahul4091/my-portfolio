@@ -1,8 +1,8 @@
 import { Resend } from "resend";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ error: "Server configuration error." }, { status: 500 });
   }
@@ -29,7 +29,6 @@ export async function POST(req: NextRequest) {
     const safeEmail   = String(email).trim().slice(0, 200);
     const safeMessage = String(message).replace(/<[^>]*>/g, "").trim().slice(0, 2000);
 
-    // ✅ Save to Neon database first
     await prisma.message.create({
       data: {
         name: safeName,
@@ -38,7 +37,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // ✅ Then send email via Resend
     const { error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL,
@@ -60,7 +58,6 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Resend error:", error);
-      // Message already saved to DB so don't fail completely
       return NextResponse.json(
         { success: true, message: "Message saved! Email delivery may be delayed." },
         { status: 200 }

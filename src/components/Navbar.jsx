@@ -14,13 +14,11 @@ export default function Navbar() {
   useEffect(() => {
     setMounted(true);
 
-    // Scroll blur effect
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
 
-    // Active section detection
     const sections = ["projects", "contact"];
-    const observers: IntersectionObserver[] = [];
+    const observers = [];
 
     sections.forEach((id) => {
       const el = document.getElementById(id);
@@ -41,7 +39,7 @@ export default function Navbar() {
     };
   }, []);
 
-  const navLink = (href: string, label: string, sectionId?: string) => {
+  const navLink = (href, label, sectionId) => {
     const isPage = pathname === href;
     const isSection = sectionId ? activeSection === sectionId : false;
     const active = isPage || isSection;

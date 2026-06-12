@@ -7,7 +7,6 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-white dark:bg-black">
 
-      {/* Animated 404 number */}
       <motion.h1
         className="text-[120px] md:text-[180px] font-bold leading-none text-zinc-100 dark:text-zinc-900 select-none"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -17,7 +16,6 @@ export default function NotFound() {
         404
       </motion.h1>
 
-      {/* Message */}
       <motion.div
         className="-mt-8 md:-mt-12"
         initial={{ opacity: 0, y: 20 }}
@@ -32,7 +30,6 @@ export default function NotFound() {
         </p>
       </motion.div>
 
-      {/* Buttons */}
       <motion.div
         className="mt-8 flex gap-4"
         initial={{ opacity: 0, y: 20 }}

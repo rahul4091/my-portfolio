@@ -10,19 +10,16 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Hide default cursor
     document.body.style.cursor = "none";
 
-    const moveCursor = (e: MouseEvent) => {
+    const moveCursor = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
-      // Dot follows instantly
       setDotPosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
     };
 
-    // Detect hover on interactive elements
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    const handleMouseOver = (e) => {
+      const target = e.target;
       if (
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
@@ -35,7 +32,6 @@ export default function CustomCursor() {
 
     const handleMouseOut = () => setIsHovering(false);
 
-    // Hide cursor when leaving window
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
@@ -59,7 +55,6 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ring — follows with spring lag */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         animate={{
@@ -83,7 +78,6 @@ export default function CustomCursor() {
         />
       </motion.div>
 
-      {/* Inner dot — follows instantly */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         animate={{
