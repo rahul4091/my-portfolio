@@ -12,7 +12,7 @@ async function main() {
       name: "Portfolio Website",
       desc: "A production-ready developer portfolio with database integration, email delivery and CI/CD — built to get hired.",
       longDesc: "Most developer portfolios are just static pages. I built mine differently — with a real PostgreSQL database (Neon), a working contact form that saves messages and sends emails via Resend, dark mode, animations and a full CI/CD pipeline. The goal was to build something that demonstrates full stack skills, not just frontend design.",
-      tech: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Framer Motion", "Resend"],
+      tech: ["Next.js", "JavaScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Framer Motion", "Resend"],
       githubUrl: "https://github.com/rahul4091/my-portfolio",
       liveUrl: "https://my-portfolio-pearl-eight-ki13whxvso.vercel.app",
       gradient: "from-yellow-400 to-orange-400",

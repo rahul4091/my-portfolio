@@ -16,7 +16,7 @@ A breakdown of every technology used in this portfolio and the reason it was cho
 
 ### JavaScript (JSX)
 **What:** Plain JavaScript with JSX syntax for writing components.  
-**Why:** No compilation step needed for types. Easier to read and contribute to for anyone familiar with standard JS. The project was originally TypeScript and was converted to JS to keep it accessible.
+**Why:** No compilation step needed. Easier to read and contribute to for anyone familiar with standard JS. Keeps the project lightweight and beginner-friendly without sacrificing any functionality.
 
 ### Tailwind CSS 4
 **What:** Utility-first CSS framework.  
