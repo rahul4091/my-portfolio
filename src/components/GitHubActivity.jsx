@@ -7,9 +7,13 @@ import { useEffect, useState } from "react";
 export default function GitHubActivity() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     setMounted(true);
+    // re-fetch every 5 minutes so new pushes show up without a page reload
+    const interval = setInterval(() => setRefreshKey((k) => k + 1), 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -30,6 +34,7 @@ export default function GitHubActivity() {
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 md:p-8 overflow-x-auto">
           {mounted && (
             <GitHubCalendar
+              key={refreshKey}
               username="rahul4091"
               colorScheme={resolvedTheme === "dark" ? "dark" : "light"}
               blockSize={13}
