@@ -62,7 +62,7 @@ export default function Hero() {
       >
         Hi, I&apos;m{" "}
         <span className="relative inline-block">
-          <span className="text-yellow-500 dark:text-yellow-400">Rahul</span>
+          <span className="text-amber-700 dark:text-yellow-400">Rahul</span>
           <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-yellow-400/40 rounded-full" />
         </span>{" "}
         👋
@@ -76,7 +76,7 @@ export default function Hero() {
       >
         {mounted ? (
           <>
-            <span className="text-yellow-500 dark:text-yellow-400 mr-2">I&apos;m</span>
+            <span className="text-amber-700 dark:text-yellow-400 mr-2">I&apos;m</span>
             <span>{displayed}</span>
             <span className="ml-1 inline-block w-0.5 h-7 bg-yellow-400 animate-pulse" />
           </>
@@ -109,7 +109,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 + i * 0.1, duration: 0.4 }}
           >
-            <span className="text-lg font-bold text-yellow-500 dark:text-yellow-400">{stat.value}</span>
+            <span className="text-lg font-bold text-amber-700 dark:text-yellow-400">{stat.value}</span>
             <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{stat.label}</span>
           </motion.div>
         ))}

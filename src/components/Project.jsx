@@ -11,7 +11,7 @@ export default async function Projects() {
     <section className="py-24 px-6 bg-white dark:bg-black" id="projects">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-widest uppercase text-yellow-500 dark:text-yellow-400 mb-3">
+          <p className="text-xs font-semibold tracking-widest uppercase text-amber-700 dark:text-yellow-400 mb-3">
             What I&apos;ve built
           </p>
           <h2 className="text-3xl md:text-4xl font-bold">My Projects</h2>
@@ -25,7 +25,7 @@ export default async function Projects() {
               <div className={`h-1 w-full bg-gradient-to-r ${project.gradient}`} />
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-bold group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors">
+                  <h3 className="text-lg font-bold group-hover:text-amber-700 dark:group-hover:text-yellow-400 transition-colors">
                     {project.name}
                   </h3>
                   <div className="flex items-center gap-1.5 shrink-0 ml-2">
