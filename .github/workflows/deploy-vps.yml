@@ -1,0 +1,23 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.PORTFOLIO_HOST }}
+          username: ${{ secrets.PORTFOLIO_USER }}
+          key: ${{ secrets.PORTFOLIO_SSH_KEY }}
+          script: |
+            cd /var/www/my-portfolio
+            git pull
+            npm install
+            npm run build
+            pm2 reload my-portfolio --update-env
+          debug: true
