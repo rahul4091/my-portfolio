@@ -13,7 +13,7 @@ async function main() {
       desc: "A production-ready developer portfolio with database integration, email delivery and CI/CD — built to get hired.",
       longDesc: "Most developer portfolios are just static pages. I built mine differently — with a real PostgreSQL database (Neon), a working contact form that saves messages and sends emails via Resend, dark mode, animations and a full CI/CD pipeline. The goal was to build something that demonstrates full stack skills, not just frontend design.",
       tech: ["Next.js", "JavaScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Framer Motion", "Resend"],
-      githubUrl: "https://github.com/rahul4091/my-portfolio",
+      githubUrl: "https://github.com/rahulpawar-31/my-portfolio",
       liveUrl: "https://my-portfolio-pearl-eight-ki13whxvso.vercel.app",
       gradient: "from-yellow-400 to-orange-400",
       features: [
@@ -34,7 +34,7 @@ async function main() {
       desc: "A production-grade REST API backend for managing books, members and borrowing — built with Node.js, Express and MongoDB.",
       longDesc: "Libraries struggle with manual tracking of books, members and overdue returns. I built a complete backend API to automate this — handling everything from book inventory to member management, borrowing and returning, and automated overdue reminders.",
       tech: ["Node.js", "Express", "MongoDB", "Mongoose", "REST API", "Cron Jobs", "MVC"],
-      githubUrl: "https://github.com/rahul4091/library-management-system-",
+      githubUrl: "https://github.com/rahulpawar-31/library-management-system-",
       liveUrl: null,
       gradient: "from-green-400 to-teal-400",
       features: [
@@ -53,7 +53,7 @@ async function main() {
       desc: "A full-stack e-commerce platform built with Payload CMS and Next.js — featuring product management, cart, and a live storefront.",
       longDesc: "A production e-commerce platform that uses Payload CMS as the headless backend for product and order management, paired with a Next.js storefront. The project covers the full commerce flow — browsing products, managing a cart, and checking out — with content managed through Payload's admin panel.",
       tech: ["Payload CMS", "Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"],
-      githubUrl: "https://github.com/rahul4091/payload-ecommerce",
+      githubUrl: "https://github.com/rahulpawar-31/payload-ecommerce",
       liveUrl: "https://payload-ecommerce-eight.vercel.app",
       gradient: "from-indigo-400 to-purple-400",
       features: [
@@ -71,7 +71,7 @@ async function main() {
       desc: "A personal AI assistant I'm actively building — bringing together LLM APIs and a custom interface for day-to-day productivity.",
       longDesc: "An ongoing personal project to build a custom AI assistant tailored to my workflow. Rather than relying on off-the-shelf tools, I'm building the interface and integrations from scratch — connecting LLM APIs, managing conversation context, and designing features I actually want to use every day.",
       tech: ["JavaScript", "Node.js", "LLM APIs", "REST API"],
-      githubUrl: "https://github.com/rahul4091/Personal-AI",
+      githubUrl: "https://github.com/rahulpawar-31/Personal-AI",
       liveUrl: null,
       gradient: "from-rose-400 to-orange-400",
       features: [

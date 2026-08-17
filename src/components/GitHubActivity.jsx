@@ -35,7 +35,7 @@ export default function GitHubActivity() {
           {mounted && (
             <GitHubCalendar
               key={refreshKey}
-              username="rahul4091"
+              username="rahulpawar-31"
               colorScheme={resolvedTheme === "dark" ? "dark" : "light"}
               blockSize={13}
               blockMargin={4}
@@ -50,7 +50,7 @@ export default function GitHubActivity() {
 
         <div className="mt-6 flex justify-center">
           <a
-            href="https://github.com/rahul4091"
+            href="https://github.com/rahulpawar-31"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
