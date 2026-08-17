@@ -10,6 +10,7 @@ export default function GitHubActivity() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount flag, avoids SSR/client hydration mismatch
     setMounted(true);
     // re-fetch every 5 minutes so new pushes show up without a page reload
     const interval = setInterval(() => setRefreshKey((k) => k + 1), 5 * 60 * 1000);

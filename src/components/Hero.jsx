@@ -16,7 +16,10 @@ export default function Hero() {
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount flag, avoids SSR/client hydration mismatch
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!mounted) return;
@@ -34,6 +37,7 @@ export default function Hero() {
       return () => clearTimeout(t);
     }
     if (isDeleting && displayed.length === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- advances the typewriter state machine once a word fully deletes
       setIsDeleting(false);
       setCurrentRole((prev) => (prev + 1) % roles.length);
     }
