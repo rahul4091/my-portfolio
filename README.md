@@ -75,7 +75,7 @@ prisma/
 ## Local Setup
 ```bash
 # Clone the repo
-git clone https://github.com/rahul4091/my-portfolio
+git clone https://github.com/rahulpawar-31/my-portfolio
 cd my-portfolio
 
 # Install dependencies
@@ -119,6 +119,6 @@ dev branch → npm run build → git push → PR to main → merge → Vercel au
 ## Author
 
 **Rahul Pawar** — Full Stack Developer
-- GitHub: https://github.com/rahul4091
-- LinkedIn: https://www.linkedin.com/in/rahul-pawar-5b8881240/
+- GitHub: https://github.com/rahulpawar-31
+- LinkedIn: https://www.linkedin.com/in/rahulpawar31/
 - Email: rahulcpawar3107@gmail.com
