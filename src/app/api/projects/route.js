@@ -7,6 +7,6 @@ export async function GET() {
     const projects = await prisma.project.findMany();
     return NextResponse.json(projects);
   } catch (error) {
-    return handleApiError(error, "Failed to fetch projects");
+    return handleApiError(error, "Projects API: failed to fetch projects:", "Failed to fetch projects");
   }
 }

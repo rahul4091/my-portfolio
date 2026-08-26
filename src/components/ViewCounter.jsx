@@ -7,10 +7,25 @@ export default function ViewCounter({ slug }) {
   const [views, setViews] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/projects/${slug}/view`, { method: "POST" })
-      .then((r) => r.json())
-      .then((data) => setViews(data.viewCount))
-      .catch(() => {});
+    let cancelled = false;
+
+    async function registerView() {
+      try {
+        const res = await fetch(`/api/projects/${slug}/view`, { method: "POST" });
+        if (!res.ok) {
+          throw new Error(`View count request failed with status ${res.status}`);
+        }
+        const data = await res.json();
+        if (!cancelled) setViews(data.viewCount);
+      } catch (err) {
+        console.error(`Failed to load view count for "${slug}":`, err);
+      }
+    }
+
+    registerView();
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   return (

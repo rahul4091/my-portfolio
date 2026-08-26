@@ -5,9 +5,9 @@ export function jsonError(message, status) {
   return NextResponse.json({ error: message }, { status });
 }
 
-export function handleApiError(error, message, status = 500) {
-  console.error(error);
-  return jsonError(message, status);
+export function handleApiError(error, logMessage, responseMessage, status = 500) {
+  console.error(logMessage, error);
+  return jsonError(responseMessage, status);
 }
 
 export function findProjectBySlug(slug) {

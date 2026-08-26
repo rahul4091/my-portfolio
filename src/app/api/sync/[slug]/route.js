@@ -17,6 +17,6 @@ export async function GET(_req, { params }) {
 
     return NextResponse.json(project);
   } catch (error) {
-    return handleApiError(error, "Failed to fetch project");
+    return handleApiError(error, `Sync API: failed to fetch project "${slug}":`, "Failed to fetch project");
   }
 }

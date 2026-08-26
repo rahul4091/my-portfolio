@@ -9,8 +9,11 @@ import { externalLinkProps } from "@/lib/site";
 
 async function getReadme(githubUrl) {
   try {
-    const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-    if (!match) return null;
+    const match = githubUrl?.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!match) {
+      console.error(`Could not parse a GitHub repo from URL: ${githubUrl}`);
+      return null;
+    }
     const [, owner, repo] = match;
     const res = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/readme`,
@@ -19,10 +22,20 @@ async function getReadme(githubUrl) {
         next: { revalidate: 3600 },
       }
     );
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error(
+        `GitHub README fetch for ${owner}/${repo} failed with status ${res.status}`
+      );
+      return null;
+    }
     const data = await res.json();
+    if (!data?.content) {
+      console.error(`GitHub README response for ${owner}/${repo} had no content`);
+      return null;
+    }
     return Buffer.from(data.content, "base64").toString("utf-8");
-  } catch {
+  } catch (err) {
+    console.error(`Failed to fetch README from ${githubUrl}:`, err);
     return null;
   }
 }
