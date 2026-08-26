@@ -34,6 +34,7 @@ describe("Contact", () => {
       name: "Ada",
       email: "ada@example.com",
       message: "Hello",
+      company: "",
     });
   });
 

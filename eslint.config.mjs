@@ -13,6 +13,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "coverage/**",
+    // Vendored/generated code — not ours to lint.
+    "src/generated/**",
+    "prisma/seed.js",
+    "tailwind.config.js",
   ]),
 ]);
 

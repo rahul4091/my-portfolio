@@ -18,7 +18,13 @@ vi.mock("resend", () => ({
 
 const { POST } = await import("@/app/api/contact/route");
 
-const request = (body) => ({
+// The route rate limits per client IP, so every request gets a fresh one
+// unless a test is deliberately exercising the limit.
+let ipCounter = 0;
+const nextIp = () => `203.0.113.${++ipCounter % 254}`;
+
+const request = (body, ip = nextIp()) => ({
+  headers: new Headers({ "x-forwarded-for": ip }),
   json: async () => {
     if (typeof body === "function") return body();
     return body;
@@ -153,18 +159,49 @@ describe("POST /api/contact", () => {
     const res = await POST(request(validBody));
 
     expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: "Something went wrong." });
+    await expect(res.json()).resolves.toEqual({
+      error: "Could not save your message. Please try again later.",
+    });
     expect(sendEmail).not.toHaveBeenCalled();
   });
 
-  it("returns 500 when the request body is not valid JSON", async () => {
+  it("returns 400 when the request body is not valid JSON", async () => {
     const res = await POST(
       request(() => {
         throw new SyntaxError("Unexpected token");
       })
     );
 
-    expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: "Something went wrong." });
+    expect(res.status).toBe(400);
+    await expect(res.json()).resolves.toEqual({ error: "Invalid request body" });
+  });
+
+  it("pretends to succeed but drops the message when the honeypot is filled", async () => {
+    const res = await POST(request({ ...validBody, company: "Acme Inc" }));
+
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({
+      success: true,
+      message: "Message sent successfully!",
+    });
+    expect(createMessage).not.toHaveBeenCalled();
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("rate limits a burst of requests from the same IP", async () => {
+    const ip = "198.51.100.7";
+    const statuses = [];
+
+    for (let i = 0; i < 5; i++) {
+      statuses.push((await POST(request(validBody, ip))).status);
+    }
+
+    expect(statuses.slice(0, 3)).toEqual([200, 200, 200]);
+    expect(statuses.slice(3)).toEqual([429, 429]);
+    await expect(
+      POST(request(validBody, ip)).then((res) => res.json())
+    ).resolves.toEqual({
+      error: "Too many requests. Please try again in a minute.",
+    });
   });
 });
