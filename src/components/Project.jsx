@@ -12,7 +12,7 @@ export default async function Projects() {
     <section className="py-24 px-6 bg-white dark:bg-black" id="projects">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <SectionHeading eyebrow="What I&apos;ve built" title="My Projects" />
+          <SectionHeading eyebrow="What I've built" title="My Projects" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, index) => (

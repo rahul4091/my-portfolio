@@ -34,13 +34,13 @@ export default function NotFound() {
       >
         <Link
           href="/"
-          className={`px-6 py-3 text-sm ${primaryButton}`}
+          className={`px-6 py-3 text-sm font-medium ${primaryButton}`}
         >
           Go home
         </Link>
         <Link
           href="/#contact"
-          className={`px-6 py-3 text-sm ${secondaryButton}`}
+          className={`px-6 py-3 text-sm font-medium ${secondaryButton}`}
         >
           Contact me
         </Link>

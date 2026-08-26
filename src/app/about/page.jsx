@@ -151,13 +151,13 @@ export default function About() {
           <div className="flex gap-3">
             <Link
               href="/#contact"
-              className={`px-5 py-2 text-sm ${primaryButton}`}
+              className={`px-5 py-2 text-sm font-medium ${primaryButton}`}
             >
               Get in touch
             </Link>
             <Link
               href="/#projects"
-              className={`px-5 py-2 text-sm ${secondaryButton}`}
+              className={`px-5 py-2 text-sm font-medium ${secondaryButton}`}
             >
               View my work
             </Link>

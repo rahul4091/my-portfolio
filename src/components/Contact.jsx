@@ -45,7 +45,7 @@ export default function Contact() {
           <SectionHeading
             eyebrow="Get in touch"
             title="Contact Me"
-            description="Have a question, a project idea, or just want to say hi? I&apos;d love to hear from you."
+            description="Have a question, a project idea, or just want to say hi? I'd love to hear from you."
             titleClassName="mb-4"
             descriptionClassName="text-zinc-500 dark:text-zinc-400 max-w-md mx-auto text-sm leading-relaxed"
           />

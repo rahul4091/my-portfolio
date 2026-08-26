@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { fadeIn, fadeInUp } from "@/lib/motion";
-import { primaryButton, secondaryButton } from "@/lib/styles";
 import { externalLinkProps, resumeUrl } from "@/lib/site";
 import { useMounted } from "@/hooks/useMounted";
 
@@ -111,17 +110,17 @@ export default function Hero() {
       >
         <button
           onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-          className={`px-7 py-3 text-sm ${primaryButton} font-semibold transition-all hover:scale-105 shadow-lg`}
+          className="px-7 py-3 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all hover:scale-105 shadow-lg"
         >
           View Projects
         </button>
         <button
           onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          className={`px-7 py-3 text-sm ${secondaryButton} font-semibold border-zinc-300 dark:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all hover:scale-105`}
+          className="px-7 py-3 border border-zinc-300 dark:border-zinc-600 text-sm font-semibold rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all hover:scale-105"
         >
           Contact Me
         </button>
-        <a href={resumeUrl} {...externalLinkProps} className={`px-7 py-3 text-sm ${secondaryButton} font-semibold border-zinc-300 dark:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all hover:scale-105`}>
+        <a href={resumeUrl} {...externalLinkProps} className="px-7 py-3 border border-zinc-300 dark:border-zinc-600 text-sm font-semibold rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all hover:scale-105">
           Resume ↓
         </a>
       </motion.div>
