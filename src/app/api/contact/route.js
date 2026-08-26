@@ -1,15 +1,16 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { jsonError } from "@/lib/api";
 
 export async function POST(req) {
   if (!process.env.RESEND_API_KEY) {
     console.error("Contact API: RESEND_API_KEY is not set");
-    return NextResponse.json({ error: "Server configuration error." }, { status: 500 });
+    return jsonError("Server configuration error.", 500);
   }
   if (!process.env.CONTACT_EMAIL) {
     console.error("Contact API: CONTACT_EMAIL is not set");
-    return NextResponse.json({ error: "Server configuration error." }, { status: 500 });
+    return jsonError("Server configuration error.", 500);
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -26,12 +27,12 @@ export async function POST(req) {
     const { name, email, message } = body ?? {};
 
     if (!name || !email || !message) {
-      return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+      return jsonError("All fields are required", 400);
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Please enter a valid email address" }, { status: 400 });
+      return jsonError("Please enter a valid email address", 400);
     }
 
     const safeName    = String(name).replace(/<[^>]*>/g, "").trim().slice(0, 100);
@@ -97,6 +98,6 @@ export async function POST(req) {
 
   } catch (err) {
     console.error("Contact API error:", err);
-    return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
+    return jsonError("Something went wrong.", 500);
   }
 }
