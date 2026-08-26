@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "", company: "" });
   const [status, setStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,19 +14,24 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "", company: "" });
-      } else {
-        setStatus("error");
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.error || `Request failed with status ${res.status}`);
       }
-    } catch {
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "", company: "" });
+    } catch (err) {
+      console.error("Contact form submission failed:", err);
+      setErrorMessage(err.message);
       setStatus("error");
     }
   };
@@ -112,7 +118,7 @@ export default function Contact() {
             )}
             {status === "error" && (
               <motion.div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm text-center" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-                ❌ Something went wrong. Please try again.
+                ❌ {errorMessage || "Something went wrong. Please try again."}
               </motion.div>
             )}
           </motion.form>
