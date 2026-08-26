@@ -1,30 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { clientIp, createRateLimiter } from "@/lib/rateLimit";
 
-const VIEW_COOLDOWN_MS = 60 * 60 * 1000;
-
-const globalForViews = globalThis;
-const recentViews = globalForViews.recentProjectViews ?? new Map();
-globalForViews.recentProjectViews = recentViews;
-
-function clientIp(req) {
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return req.headers.get("x-real-ip") ?? "unknown";
-}
-
-function alreadyCounted(req, slug) {
-  const now = Date.now();
-  for (const [key, seenAt] of recentViews) {
-    if (now - seenAt > VIEW_COOLDOWN_MS) recentViews.delete(key);
-  }
-
-  const key = `${clientIp(req)}:${slug}`;
-  if (recentViews.has(key)) return true;
-
-  recentViews.set(key, now);
-  return false;
-}
+const viewDedupe = createRateLimiter({
+  name: "project-views",
+  max: 1,
+  windowMs: 60 * 60 * 1000,
+});
 
 export async function GET(_req, { params }) {
   const { slug } = await params;
@@ -32,16 +14,17 @@ export async function GET(_req, { params }) {
     const project = await prisma.project.findUnique({ where: { slug } });
     return NextResponse.json({ viewCount: project?.viewCount ?? 0 });
   } catch (error) {
-    console.error(error);
+    console.error(`View count API: failed to fetch views for "${slug}":`, error);
     return NextResponse.json({ error: "Failed to fetch view count" }, { status: 500 });
   }
 }
 
 export async function POST(req, { params }) {
   const { slug } = await params;
+  const dedupeKey = `${clientIp(req)}:${slug}`;
 
   try {
-    if (alreadyCounted(req, slug)) {
+    if (viewDedupe.isOverLimit(dedupeKey)) {
       const project = await prisma.project.findUnique({ where: { slug } });
       if (!project) {
         return NextResponse.json({ error: "Project not found" }, { status: 404 });
@@ -55,12 +38,14 @@ export async function POST(req, { params }) {
       select: { viewCount: true },
     });
 
+    viewDedupe.record(dedupeKey);
+
     return NextResponse.json({ viewCount: project.viewCount });
   } catch (error) {
     if (error?.code === "P2025") {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
-    console.error(error);
-    return NextResponse.json({ error: "Failed to record view" }, { status: 500 });
+    console.error(`View count API: failed to increment views for "${slug}":`, error);
+    return NextResponse.json({ error: "Failed to update view count" }, { status: 500 });
   }
 }
