@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { jsonError, handleApiError, findProjectBySlug } from "@/lib/api";
 
 export async function GET(_req, { params }) {
   const { slug } = await params;
 
   try {
-    const project = await prisma.project.findUnique({ where: { slug } });
+    const project = await findProjectBySlug(slug);
     if (!project) {
-      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+      return jsonError("Project not found", 404);
     }
     return NextResponse.json(project);
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch project" }, { status: 500 });
+    return handleApiError(error, "Failed to fetch project");
   }
 }

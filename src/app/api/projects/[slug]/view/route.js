@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { findProjectBySlug, handleApiError } from "@/lib/api";
 
 export async function GET(_req, { params }) {
   const { slug } = await params;
   try {
-    const project = await prisma.project.findUnique({ where: { slug } });
+    const project = await findProjectBySlug(slug);
     return NextResponse.json({ viewCount: project?.viewCount ?? 0 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch view count" }, { status: 500 });
+    return handleApiError(error, "Failed to fetch view count");
   }
 }
