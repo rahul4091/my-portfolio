@@ -17,13 +17,21 @@ vi.mock("resend", () => ({
 }));
 
 const { POST } = await import("@/app/api/contact/route");
+const { createRateLimiter } = await import("@/lib/rateLimit");
 
-const request = (body) => ({
-  json: async () => {
-    if (typeof body === "function") return body();
-    return body;
-  },
-});
+const limiter = createRateLimiter({ name: "contact", max: 5, windowMs: 1 });
+
+const request = (body, { headers, ip = "203.0.113.1" } = {}) => {
+  const raw = typeof body === "string" ? body : JSON.stringify(body);
+  return {
+    headers: new Headers({
+      "content-type": "application/json",
+      "x-real-ip": ip,
+      ...headers,
+    }),
+    text: async () => raw,
+  };
+};
 
 const validBody = {
   name: "Ada Lovelace",
@@ -38,6 +46,7 @@ describe("POST /api/contact", () => {
     createMessage.mockResolvedValue({ id: "msg_1" });
     sendEmail.mockResolvedValue({ error: null });
     vi.spyOn(console, "error").mockImplementation(() => {});
+    limiter.reset();
   });
 
   it("returns 500 when RESEND_API_KEY is missing", async () => {
@@ -153,18 +162,90 @@ describe("POST /api/contact", () => {
     const res = await POST(request(validBody));
 
     expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: "Something went wrong." });
+    await expect(res.json()).resolves.toEqual({
+      error: "Could not save your message. Please try again later.",
+    });
     expect(sendEmail).not.toHaveBeenCalled();
   });
 
-  it("returns 500 when the request body is not valid JSON", async () => {
+  it("returns 400 when the request body is not valid JSON", async () => {
+    const res = await POST(request("{ not json"));
+
+    expect(res.status).toBe(400);
+    await expect(res.json()).resolves.toEqual({ error: "Invalid request body" });
+    expect(createMessage).not.toHaveBeenCalled();
+  });
+
+  it("returns 415 when the body is not declared as JSON", async () => {
     const res = await POST(
-      request(() => {
-        throw new SyntaxError("Unexpected token");
-      })
+      request(validBody, { headers: { "content-type": "text/plain" } })
     );
 
-    expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: "Something went wrong." });
+    expect(res.status).toBe(415);
+    expect(createMessage).not.toHaveBeenCalled();
+  });
+
+  it("returns 413 for an oversized body", async () => {
+    const res = await POST(
+      request({ ...validBody, message: "m".repeat(20 * 1024) })
+    );
+
+    expect(res.status).toBe(413);
+    expect(createMessage).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["a number name", { ...validBody, name: 7 }],
+    ["an object message", { ...validBody, message: { toString: "nope" } }],
+  ])("returns 400 for %s", async (_label, body) => {
+    const res = await POST(request(body));
+
+    expect(res.status).toBe(400);
+    await expect(res.json()).resolves.toEqual({ error: "All fields are required" });
+    expect(createMessage).not.toHaveBeenCalled();
+  });
+
+  it("escapes user content in the email html", async () => {
+    await POST(
+      request({ ...validBody, message: 'Hi "there" & <b>bold' })
+    );
+
+    const { html } = sendEmail.mock.calls[0][0];
+    expect(html).toContain("Hi &quot;there&quot; &amp;");
+    expect(html).not.toContain("<b>bold");
+  });
+
+  it("rate limits a client after five messages", async () => {
+    for (let i = 0; i < 5; i += 1) {
+      const ok = await POST(request(validBody));
+      expect(ok.status).toBe(200);
+    }
+
+    const res = await POST(request(validBody));
+
+    expect(res.status).toBe(429);
+    expect(createMessage).toHaveBeenCalledTimes(5);
+  });
+
+  it("does not spend quota on invalid submissions", async () => {
+    for (let i = 0; i < 8; i += 1) {
+      await POST(request({ ...validBody, email: "nope" }));
+    }
+
+    const res = await POST(request(validBody));
+
+    expect(res.status).toBe(200);
+  });
+
+  it("ignores a spoofed forwarded client address", async () => {
+    for (let i = 0; i < 5; i += 1) {
+      await POST(request(validBody, { headers: { "x-forwarded-for": `1.2.3.${i}` } }));
+    }
+
+    const res = await POST(
+      request(validBody, { headers: { "x-forwarded-for": "9.9.9.9" } })
+    );
+
+    expect(res.status).toBe(429);
   });
 });
